@@ -87,11 +87,11 @@ secret-detector/
 ```
 
 ## Limitations
-✅ Currently supports only PDF files
-🔐 Relies on Prompt Security API for secret detection
-🌐 Works only on specific web platforms that allow access to file uploads
-🧩 Requires manual loading as an unpacked extension in Chrome
-⚠️ On ChatGPT, detection does not work for PDFs uploaded via the file input button due to platform restrictions, only drag-and-drop is supported.
+- ✅ Currently supports only PDF files
+- 🔐 Relies on Prompt Security API for secret detection
+- 🌐 Works only on specific web platforms that allow access to file uploads
+- 🧩 Requires manual loading as an unpacked extension in Chrome
+- ⚠️ On ChatGPT, detection does not work for PDFs uploaded via the file input button due to platform            restrictions, only drag-and-drop is supported.
 
 ## Contributing
 1. Fork the repository
