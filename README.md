@@ -7,40 +7,38 @@ This project is a Chrome extension and backend service designed to capture PDF f
 - PDF file upload detection in Chrome
 - Backend service for PDF text extraction
 - Secret detection using Prompt Security API
+- Optional Dockerized backend for easy deployment
 
 ## Prerequisites
-- Python 3.8+
+- Python 3.8+ or Docker
 - Chrome Browser
 - Prompt Security API credentials
 
 ## Installation and Setup
 
 ### Backend Service
-1. Clone the repository
 
-2. Enter backend directory
+#### Option A: Using Docker
 ```bash
-cd secret-detector/backend-service
+git clone https://github.com/your-username/secret-detector.git
+cd secret-detector
+docker-compose up --build
 ```
-
-3. Create a virtual environment
+> 🛠 Make sure Docker Desktop is installed and running.
+> If you get a permission error like `permission denied` or `open ~/.docker/buildx/current: permission denied`, run:
 ```bash
+sudo chown -R $(whoami) ~/.docker
+chmod -R u+rw ~/.docker
+```
+> Then restart Docker Desktop and retry.
+
+#### Option B: Run locally (no Docker)
+```bash
+git clone https://github.com/your-username/secret-detector.git
+cd secret-detector/backend-service
 python3 -m venv venv
 source venv/bin/activate
-```
-
-4. Install dependencies
-```bash
 pip install -r requirements.txt
-```
-
-5. Set up environment variables
-```bash
-export PROMPT_SECURITY_APP_ID=your_app_id_here
-```
-
-6. Run the backend service
-```bash
 python app.py
 ```
 
@@ -50,24 +48,22 @@ python app.py
 3. Click "Load unpacked" and select the `chrome-extension` directory
 
 ## Usage
-1. Open ChatGPT or any other supported AI web platform.
-2. Upload a PDF file using either:
-    - A file input
-    - Or by drag-and-dropping it into the page.
+1. Open [ChatGPT](https://chat.openai.com) or another supported web AI platform.
+2. **Drag and drop** a PDF file into the page (ChatGPT input button is not supported).
 3. The Chrome extension will automatically:
-    - Intercept the upload
-    - Extract and inspect the file content via the backend
-4. If potential secrets are found:
-    - A red popup alert will be displayed in the top-right corner.
+   - Detect the PDF
+   - Send it to the backend for scanning
+4. If secrets are detected:
+   - A red alert will appear in the top-right corner
+   - Results are also logged to the browser console
 
 ## Components
-- Chrome Extension: Captures PDF file uploads
-- Backend File Inspection Service: Analyzes files for potential secrets in PDF files
+- **Chrome Extension** – Intercepts drag-and-drop and input PDF uploads and sends them for scanning
+- **Backend Service** – Parses PDF, extracts text, and sends it to Prompt Security for detection
 
 ## Project Structure
 ```
 secret-detector/
-│
 ├── chrome-extension/
 │   ├── background.js
 │   ├── constants.js
@@ -77,25 +73,36 @@ secret-detector/
 ├── backend-service/
 │   ├── app.py
 │   ├── config.py
+│   ├── Dockerfile
 │   ├── inspector.py
 │   ├── logger.py
-│   ├── requirenments.txt
+│   ├── requirements.txt
 │   └── utils.py
 │
+├── docker-compose.yml
 ├── .gitignore
 └── README.md
 ```
 
 ## Limitations
-- ✅ Currently supports only PDF files
-- 🔐 Relies on Prompt Security API for secret detection
-- 🌐 Works only on specific web platforms that allow access to file uploads
-- 🧩 Requires manual loading as an unpacked extension in Chrome
-- ⚠️ On ChatGPT, detection does not work for PDFs uploaded via the file input button due to platform            restrictions, only drag-and-drop is supported.
+- Currently supports only PDF files
+- Relies on Prompt Security API for secret detection
+- Works only on specific web platforms that allow access to file uploads
+- Requires manual loading as an unpacked extension in Chrome
+- On ChatGPT, detection does not work for PDFs uploaded via the file input button due to platform restrictions — only drag-and-drop is supported
+- Slight delay while scanning files (sub-second, longer for large PDFs or network latency)
+- May trigger false positives/negatives — rely on Prompt Security accuracy
 
-## Contributing
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+## Production Considerations
+- Deploy extension via Chrome Enterprise or private Web Store listing
+- Host backend on internal server with TLS, JWT or mutual TLS authentication
+- Manage API secrets securely in server-side env variables (never expose to frontend)
+- Scale backend with multiple instances or use centralized queue for large user bases
+- Ensure compliance with data protection laws if using external APIs (e.g., Prompt Security)
+
+## Performance & Future Improvements
+- Add caching for previously scanned files (e.g., SHA-256 hash match)
+- Support streaming/partial parsing for large files
+- Extend to additional file formats or even image scans with OCR
+- Add user-friendly UI (progress indicator, option to view or redact secrets)
+- Consider fallback detection if Prompt Security API fails (e.g., regex-based local scan)

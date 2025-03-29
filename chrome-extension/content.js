@@ -8,11 +8,15 @@ document.addEventListener('change', async (event) => {
           console.log(`[SecretDetector] File selected: ${file.name}`);
           try {
             const fileContent = await readFileAsArrayBuffer(file);
-            chrome.runtime.sendMessage({
-              type: 'PDF_UPLOAD_DETECTED',
-              filename: file.name,
-              fileContent: Array.from(new Uint8Array(fileContent))
-            });
+            setTimeout(() => {
+              if (chrome.runtime?.id) {
+                chrome.runtime.sendMessage({
+                  type: 'PDF_UPLOAD_DETECTED',
+                  filename: file.name,
+                  fileContent: Array.from(new Uint8Array(fileContent))
+                });
+              }
+            }, 10);
           } catch (error) {
             console.error('Error processing uploaded PDF:', error);
           }

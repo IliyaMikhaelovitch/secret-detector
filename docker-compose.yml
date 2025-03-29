@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend-service
+    ports:
+      - "5050:5050"
+    environment:
+      - PROMPT_SECURITY_APP_ID=cc6a6cfc-9570-4e5a-b6ea-92d2adac90e4
+    volumes:
+      - ./backend-service:/app
