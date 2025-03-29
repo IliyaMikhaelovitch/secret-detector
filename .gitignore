@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+*.log
+
+# Chrome Extension
+*.crx
+*.pem
+
+# Environment
+.env
+.venv
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+.DS_Store
