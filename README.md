@@ -89,7 +89,7 @@ secret-detector/
 - Relies on Prompt Security API for secret detection
 - Works only on specific web platforms that allow access to file uploads
 - Requires manual loading as an unpacked extension in Chrome
-- On ChatGPT, detection does not work for PDFs uploaded via the file input button due to platform restrictions — only drag-and-drop is supported
+- On ChatGPT, file input buttons are not supported due to platform limitations — only drag-and-drop works. On other platforms, both file inputs and drag-and-drop may work as expected
 - Slight delay while scanning files (sub-second, longer for large PDFs or network latency)
 - May trigger false positives/negatives — rely on Prompt Security accuracy
 - Currently tested and supported on:
