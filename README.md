@@ -87,7 +87,6 @@ secret-detector/
 ## Limitations
 - Currently supports only PDF files
 - Relies on Prompt Security API for secret detection
-- Works only on specific web platforms that allow access to file uploads
 - Requires manual loading as an unpacked extension in Chrome
 - On ChatGPT, file input buttons are not supported due to platform limitations — only drag-and-drop works. On other platforms, both file inputs and drag-and-drop may work as expected
 - Slight delay while scanning files (sub-second, longer for large PDFs or network latency)
@@ -104,7 +103,7 @@ secret-detector/
 - Host backend on internal server with TLS, JWT or mutual TLS authentication
 - Manage API secrets securely in server-side env variables (never expose to frontend)
 - Ensure compliance with data protection laws if using external APIs (e.g., Prompt Security)
-- Add unit tests, integration tests, and automation to validate functionality
+- Add unit tests, integration tests, and automation to validate functionality with more files and secret types
 - Enhance popup UX by including details from the Prompt Security response to help users understand what was flagged and why
 
 ## Performance & Future Improvements
