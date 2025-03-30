@@ -96,7 +96,7 @@ secret-detector/
   - https://chatgpt.com
   - https://www.perplexity.ai
   - https://claude.ai/chat/
-  More platforms can be added by updating the manifest file
+- More platforms can be added by updating the manifest file
 
 ## Production Considerations
 - Deploy extension via Chrome Enterprise or private Web Store listing
