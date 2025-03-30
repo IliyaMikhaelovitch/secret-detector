@@ -49,7 +49,7 @@ python app.py
 
 ## Usage
 1. Open [ChatGPT](https://chat.openai.com) or another supported web AI platform.
-2. **Drag and drop** a PDF file into the page (ChatGPT input button is not supported).
+2. **Drag and drop** a PDF file into the page. On ChatGPT, file input buttons are not supported due to platform limitations — only drag-and-drop works. On other platforms, both file inputs and drag-and-drop works as expected
 3. The Chrome extension will automatically:
    - Detect the PDF
    - Send it to the backend for scanning
@@ -92,13 +92,20 @@ secret-detector/
 - On ChatGPT, detection does not work for PDFs uploaded via the file input button due to platform restrictions — only drag-and-drop is supported
 - Slight delay while scanning files (sub-second, longer for large PDFs or network latency)
 - May trigger false positives/negatives — rely on Prompt Security accuracy
+- Currently tested and supported on:
+  - https://chatgpt.com
+  - https://www.perplexity.ai
+  - https://claude.ai/chat/
+  More platforms can be added by updating the manifest file
 
 ## Production Considerations
 - Deploy extension via Chrome Enterprise or private Web Store listing
+- Consider ECS/EKS backend deployment with a message queue for scalable infrastructure
 - Host backend on internal server with TLS, JWT or mutual TLS authentication
 - Manage API secrets securely in server-side env variables (never expose to frontend)
-- Scale backend with multiple instances or use centralized queue for large user bases
 - Ensure compliance with data protection laws if using external APIs (e.g., Prompt Security)
+- Add unit tests, integration tests, and automation to validate functionality
+- Enhance popup UX by including details from the Prompt Security response to help users understand what was flagged and why
 
 ## Performance & Future Improvements
 - Add caching for previously scanned files (e.g., SHA-256 hash match)
