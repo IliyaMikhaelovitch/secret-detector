@@ -20,7 +20,7 @@ This project is a Chrome extension and backend service designed to capture PDF f
 
 #### Option A: Using Docker
 ```bash
-git clone https://github.com/your-username/secret-detector.git
+git clone https://github.com/IliyaMikhaelovitch/secret-detector.git
 cd secret-detector
 docker-compose up --build
 ```
@@ -34,7 +34,7 @@ chmod -R u+rw ~/.docker
 
 #### Option B: Run locally (no Docker)
 ```bash
-git clone https://github.com/your-username/secret-detector.git
+git clone https://github.com/IliyaMikhaelovitch/secret-detector.git
 cd secret-detector/backend-service
 python3 -m venv venv
 source venv/bin/activate
